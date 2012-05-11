@@ -5,12 +5,12 @@
 
 Gem::Specification.new do |s|
   s.name = "parallel_queue"
-  s.version = "1.0.1"
+  s.version = "0.1.0"
 
   s.required_rubygems_version = Gem::Requirement.new(">= 0") if s.respond_to? :required_rubygems_version=
   s.authors = ["Daniel Nelson"]
-  s.date = "2012-04-24"
-  s.description = "Primary use for us is for queueing messages based on ID so that very chatty message emitters don't prevent messages from others from being processed"
+  s.date = "2012-05-11"
+  s.description = "Motivation for creating this was for queueing messages based on ID so that very chatty message emitters don't prevent messages from others from being processed"
   s.email = "daniel@populr.me"
   s.extra_rdoc_files = [
     "LICENSE",
@@ -26,16 +26,18 @@ Gem::Specification.new do |s|
     "README.md",
     "Rakefile",
     "VERSION",
-    "parallel_queue.gemspec",
+    "dequeue_demo.rb",
+    "enqueue_demo.rb",
     "lib/parallel_queue.rb",
+    "parallel_queue.gemspec",
     "spec/parallel_queue_spec.rb",
     "spec/spec_helper.rb"
   ]
-  s.homepage = "http://github.com/centresource/parallel_queue"
+  s.homepage = "http://github.com/populr/parallel_queue"
   s.licenses = ["MIT"]
   s.require_paths = ["lib"]
   s.rubygems_version = "1.8.10"
-  s.summary = "A thread safe, Redis backed parallel queue abstraction"
+  s.summary = "A thread safe, Redis backed, parallel queue abstraction"
 
   if s.respond_to? :specification_version then
     s.specification_version = 3
