@@ -3,7 +3,6 @@ require File.expand_path(File.dirname(__FILE__) + '/spec_helper')
 describe "ParallelQueue" do
   before(:each) do
     @redis = Redis.new(:host => '127.0.0.1', :port => '6379')
-    @redis.del("demo_queue_current_q")
     @redis.del("demo_queue_qs")
     @redis.del("demo_queue_q_abc")
     @redis.del("demo_queue_q_peanuts")
@@ -119,6 +118,17 @@ describe "ParallelQueue" do
         results << item
       end
       results.should eq(['Charlie Brown'])
+    end
+
+    context "when the situation arises in which another thread deletes a queue so that when we run dequeue, we receive nil" do
+      it "should not yield to the block" do
+        @queue.stub(:queue_count).and_return(1, 0)
+        results = []
+        @queue.dequeue_each do |item|
+          results << item
+        end
+        results.should have(0).items
+      end
     end
   end
 

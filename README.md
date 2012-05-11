@@ -50,6 +50,33 @@ Example:
 All items are queued and returned as strings.
 
 
+
+Testing in multiple threads
+===========================
+
+A couple files are provided to make it easy to test this in multiple threads. Start by opening three terminals (I use the [byobu](https://launchpad.net/byobu) flavor of [screen](http://www.gnu.org/software/screen/)) and cd-ing to the root of this project.
+
+Terminal 1:
+
+    $ ruby dequeue_demo.rb d1.txt
+
+Terminal 2:
+
+    $ ruby dequeue_demo.rb d2.txt
+
+Terminal 3 (run the command in terminal 3 after starting 1 & 2):
+
+    $ ruby enqueue_demo.rb
+    After a few seconds have passed, press control-c in Terminal 3.
+    Terminals 1 & 2 will automatically stop when they finish processing
+    the data enqueued by Terminal 3.
+
+To check for any common values between d1.txt and d2.txt (there should be none):
+
+    $ comm -1 -2 d1.txt d2.txt
+
+
+
 Contributing to parallel_queue
 ==========================
 

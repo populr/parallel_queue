@@ -56,7 +56,7 @@ class ParallelQueue
 
     begin
       item = dequeue
-      yield(item)
+      yield(item) unless item.nil?
     end while current_queue_index > 0 && current_queue_index < queue_count
   end
 
