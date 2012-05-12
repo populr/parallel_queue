@@ -7,7 +7,7 @@ require 'pry-nav'
 require 'pry-stack_explorer'
 
 redis = Redis.new(:host => '127.0.0.1', :port => '6379')
-queue = ParallelQueue.new(redis, 'demo_queue')
+queue = ParallelQueue.new(redis, 'demo_queue', :maxlength => 1000)
 
 counter = 0
 ids = ['abc', 'def', 'ghi', 'jkl', 'mno', 'pqrs']

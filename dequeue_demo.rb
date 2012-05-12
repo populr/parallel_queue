@@ -13,11 +13,13 @@ filename = ARGV[0]
 return puts "File name required" if filename.nil?
 
 array = []
+start = nil
 while array.empty? || queue.queue_count > 0
+  start = Time.now if start.nil? && !array.empty?
   queue.dequeue_each() do |item|
     array << item.to_i
     puts "dequeue: #{item}"
   end
 end
-
+puts Time.now - start
 File.open(filename, 'w') { |f| f.write(array.sort.join("\n")) }

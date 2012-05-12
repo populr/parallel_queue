@@ -18,7 +18,14 @@ Example:
     require 'redis'
     require 'parallel_queue'
     redis = Redis.new(:host => '127.0.0.1', :port => '6379')
-    queue = ParallelQueue.new(redis, 'my_object_message_queue')
+    queue = ParallelQueue.new(redis, 'my_object_message_queue', :maxlength => 1000)
+    # The optional :maxlength option limits the length of each individual message queue.
+    # When a queue that already has maxlength messages receives a new message, the
+    # oldest message in that queue is discarded (O(1)).
+    # Because there is one queue per message emitter, one queue becoming full has no effect
+    # on the remaining queues (no messages will be lost for other emitters unless they,
+    # too, reach :maxlength). If maxlength is not present, then queue length is not
+    # artificially limited.
     queue.enqueue('123', 'hello world')
     queue.enqueue('peanuts', 'Chalie Brown')
     queue.enqueue('peanuts', 'Snoopy')
@@ -74,6 +81,8 @@ Terminal 3 (run the command in terminal 3 after starting 1 & 2):
 To check for any common values between d1.txt and d2.txt (there should be none):
 
     $ comm -1 -2 d1.txt d2.txt
+    should not have any matches (make sure you delete
+    the two files between runs)
 
 
 

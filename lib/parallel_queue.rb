@@ -45,6 +45,13 @@ class ParallelQueue
       release_lock
       item
     else # couldn't acquire or break the lock. wait and try again
+      # A small sleep value is actually faster than no sleep value, presumably because no
+      # delay puts too much stress on Redis
+      # Experimented with two dequeue_demo.rb and one enqueue_demo.rb process running
+      # simultaneously:
+      # 0.01 second delay resulted in 22.77 seconds for a run of 0 to 40528 (21.85 and 40598 for run 2)
+      # 0.001 second delay resulted in 23.78 seconds for a run of 0 to 40588 (22.99 and 40822 for run 2)
+      # no delay resulted in 25.05 seconds for a run of 0 to 40573 (25.13 and 40674 for run 2)
       sleep 0.01
       dequeue
     end
@@ -69,6 +76,8 @@ class ParallelQueue
       self.current_queue_index = 0
       release_lock
     else # couldn't acquire or break the lock. wait and try again
+      # a small sleep value is actually faster than no sleep value, presumably because no
+      # delay puts too much stress on Redis
       sleep 0.01
       delete_all!
     end
@@ -95,8 +104,10 @@ class ParallelQueue
   end
 
   def current_queue_index # :nodoc:
-    return 0 if queue_count == 0
-    @current_queue_index % queue_count
+    # in a multi-threaded environment, queue_count can go from non-zero to zero
+    # between a conditional check and the mod computation, so rescue the exception
+    # rather than trying to prevent it
+    @current_queue_index % queue_count rescue 0
   end
 
   def current_queue_index=(index) # :nodoc:
