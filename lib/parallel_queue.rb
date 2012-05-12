@@ -47,11 +47,25 @@ class ParallelQueue
     else # couldn't acquire or break the lock. wait and try again
       # A small sleep value is actually faster than no sleep value, presumably because no
       # delay puts too much stress on Redis
-      # Experimented with two dequeue_demo.rb and one enqueue_demo.rb process running
-      # simultaneously:
-      # 0.01 second delay resulted in 22.77 seconds for a run of 0 to 40528 (21.85 and 40598 for run 2)
-      # 0.001 second delay resulted in 23.78 seconds for a run of 0 to 40588 (22.99 and 40822 for run 2)
-      # no delay resulted in 25.05 seconds for a run of 0 to 40573 (25.13 and 40674 for run 2)
+      # Experiment:
+      # started dequeue_demo.rb in two terminals
+      # started enqueue_demo.rb in a third terminal
+      # enqueue_demo.rb is set to run until it enqueues 40,000 times
+      # dequeue_demo.rb times its run, starting from the first time there is data to
+      # dequeue, and running through until all data have been dequeued
+      # times reported are the average of both dequeue terminals (which consitently ended
+      # within 0.1 second of one another)
+      # Sleep Delay            Run Duration (in seconds)
+      # 0.01                   22.6
+      # 0.001                  22.3
+      # no sleep               25.1
+      # 0.001                  23.8
+      # 0.001                  23.8
+      # 0.01                   22.6
+      # 0.01                   22.7
+      # no sleep               25.1
+      # no sleep               25.0
+      #
       sleep 0.01
       dequeue
     end

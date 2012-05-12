@@ -11,7 +11,7 @@ queue = ParallelQueue.new(redis, 'demo_queue', :maxlength => 1000)
 
 counter = 0
 ids = ['abc', 'def', 'ghi', 'jkl', 'mno', 'pqrs']
-while true
+while counter < 40000
   id = ids.sample
   queue.enqueue(id, counter)
   puts "enqueue: #{counter}"
