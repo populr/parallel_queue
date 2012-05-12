@@ -74,7 +74,7 @@ Terminal 2:
 Terminal 3 (run the command in terminal 3 after starting 1 & 2):
 
     $ ruby enqueue_demo.rb
-    After a few seconds have passed, press control-c in Terminal 3.
+    This will automatically end after enqueueing 40000 times
     Terminals 1 & 2 will automatically stop when they finish processing
     the data enqueued by Terminal 3.
 
