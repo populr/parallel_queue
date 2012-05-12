@@ -24,7 +24,7 @@ Example:
     # oldest message in that queue is discarded (O(1)).
     # Because there is one queue per message emitter, one queue becoming full has no effect
     # on the remaining queues (no messages will be lost for other emitters unless they,
-    # too, reach :maxlength). If maxlength is not present, then queue length is not
+    # too, reach :maxlength). If maxlength is omitted, then queue length is not
     # artificially limited.
     queue.enqueue('123', 'hello world')
     queue.enqueue('peanuts', 'Chalie Brown')
