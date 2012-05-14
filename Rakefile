@@ -18,7 +18,7 @@ Jeweler::Tasks.new do |gem|
   gem.homepage = "http://github.com/populr/parallel_queue"
   gem.license = "MIT"
   gem.summary = %Q{A thread safe, Redis backed, parallel queue abstraction}
-  gem.description = %Q{Motivation for creating this was for queueing messages based on ID so that very chatty message emitters don't prevent messages from others from being processed}
+  gem.description = %Q{A thread safe, Redis backed, parallel queue abstraction. Motivation for creating this was for queueing messages based on ID so that very chatty message emitters don't prevent messages from others from being processed}
   gem.email = "daniel@populr.me"
   gem.authors = ["Daniel Nelson"]
   # dependencies defined in Gemfile
