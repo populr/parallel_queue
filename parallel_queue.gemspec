@@ -5,12 +5,12 @@
 
 Gem::Specification.new do |s|
   s.name = "parallel_queue"
-  s.version = "0.1.0"
+  s.version = "0.1.1"
 
   s.required_rubygems_version = Gem::Requirement.new(">= 0") if s.respond_to? :required_rubygems_version=
   s.authors = ["Daniel Nelson"]
-  s.date = "2012-05-11"
-  s.description = "Motivation for creating this was for queueing messages based on ID so that very chatty message emitters don't prevent messages from others from being processed"
+  s.date = "2012-05-14"
+  s.description = "A thread safe, Redis backed, parallel queue abstraction. Motivation for creating this was for queueing messages based on ID so that very chatty message emitters don't prevent messages from others from being processed"
   s.email = "daniel@populr.me"
   s.extra_rdoc_files = [
     "LICENSE",
